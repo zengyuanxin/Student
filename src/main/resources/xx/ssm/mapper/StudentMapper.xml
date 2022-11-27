@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xx.ssm.mapper.StudentMapper">
+
+    <resultMap id="studentMap" type="Student">
+        <id property="id" column="stu_id"></id>
+        <result property="stuName" column="ustu_name"></result>
+        <result property="age" column="age"></result>
+        <result property="sex" column="sex"></result>
+        <result property="email" column="email"></result>
+    </resultMap>
+
+    <resultMap id="StudentResultMap" type="xx.ssm.pojo.Student"></resultMap>
+    <!--List<Student> getAllStudent();-->
+    <select id="getAllStudent" resultType="Student">
+        select * from t_stu
+    </select>
+
+    <!--Student getStudentById(@Param("stuId") Integer stuId);-->
+    <select id="getStudentById" resultType="Student" >
+        select * from t_stu where stu_id =#{stuId}
+    </select>
+
+    <!--void updateStudent(@Param("student") Student student);-->
+    <update id="updateStudent">
+        update t_stu set stu_name = #{student.stuName} , age = #{student.age} , sex = #{student.sex} , email = #{student.email} where stu_id = #{student.stuId}
+    </update>
+
+    <!--void deleteStudent(@Param("stuId") Integer stuId);-->
+    <delete id="deleteStudent">
+        delete from t_stu where stu_id = #{stuId}
+    </delete>
+
+    <!--void addStudent(@Param("student") Student student);-->
+    <insert id="addStudent">
+        insert into t_stu values(null,#{student.stuName},#{student.age},#{student.sex},#{student.email})
+    </insert>
+
+    <!--List<Student> getStudentByKeyword(@Param("keyword")String keyword);-->
+    <select id="getStudentByKeyword" resultType="Student">
+            select * from t_stu
+                where stu_id like "%"#{keyword}"%"
+                or stu_name like "%"#{keyword}"%"
+                or age like "%"#{keyword}"%"
+                or sex like "%"#{keyword}"%"
+                or email like "%"#{keyword}"%"
+    </select>
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<!-- 扫描组件-->
+    <context:component-scan base-package="xx.ssm">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+                <!-- 通过注解排除，标识控制层注解的全类名 -->
+    </context:component-scan>
+
+<!-- 2.引入jdbc.properties-->
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+
+<!-- 1.配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--
+        开启事务注解驱动
+        将使用注解@transactional标识的方法或类中所有的方法进行事务管理（切面知识）
+    -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+<!--
+    将sqlSesiionFactoryBean配置到ioc容器之后，我们可以直接来获取这个工厂bean所提供的对象（sqlSesiionFactory）
+    sqlSesiionFactoryBean和普通工厂的区别：
+        如果现在有一个普通的工厂sqlSesiionFactory，那我们把sqlSesiionFactory配置到ioc容器中
+            是先获取ioc，再获取sqlSesiionFactory的bean，然后再通过sqlSesiionFactory获取工厂所提供的对象
+        如果直接用sqlSesiionFactoryBean工厂bean，我们将qlSesiionFactoryBean配置到ioc容器中，可以省略获取工厂的步骤
+        我们可以直接在ioc中获取这个工厂所提供的对象
+            getObject、getObjectType、iSingleton
+            getObject返回的是sqlSesiionFactory
+ -->
+
+<!--配置sqlSesiionFactoryBean-->
+<!--可以直接在spring的ioc中获取SqlSessionFactory对象-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 设置当前mybatis核心配置文件的路径-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <!-- 设置数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 设置类型别名对应的包-->
+        <property name="typeAliasesPackage" value="xx.ssm.pojo"></property>
+<!-- 设置映射文件的路径，只有映射文件的包和mapper接口的包不一致时才需要设置-->
+<!--        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>-->
+     </bean>
+<!--
+    扫描mapper接口，
+    它可以把我们当前所设置的包下的所有的mapper接口，
+    通过SqlSessionFactoryBean所提供的的SqlSession，通过SqlSession获取mapper包下所有的接口的代理实现类对象，并且将这些对象交给ioc容器管理
+-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="xx.ssm.mapper"></property>
+    </bean>
+</beans>

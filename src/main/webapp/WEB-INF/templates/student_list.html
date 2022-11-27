@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生列表</title>
+<!--    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">-->
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+</head>
+<body>
+<div id="div_container">
+    <table>
+        <tr>
+            <th colspan="6">
+                学生列表
+            </th>
+        </tr>
+        <tr>
+            <th id="myform" colspan="6">
+                <form th:action="@{/student/page/1}" method="post" style="float:left;width:60%;margin-left:20%;">
+                    请输入关键字：<input type="text" name="keyword" th:value="${keyword}">
+                    <input type="submit" value="查询">
+                </form>
+                <a th:href="@{/student/addPage}" style="border:0px solid blue;margin-bottom:4px;">添加新学生信息</a>
+            </th>
+        </tr>
+        <tr>
+            <th>序号</th>
+            <th>学生姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>
+                操作
+            </th>
+        </tr>
+        <tr th:each="student,status :${page.list}">
+            <td th:text="${status.count}">1</td>
+            <td th:text="${student.stuName}">张三</td>
+            <td th:text="${student.age}">12</td>
+            <td th:text="${student.sex}">男</td>
+            <td th:text="${student.email}">123@qq.com</td>
+            <td>
+                <a th:href="@{'/student/delete/'+${student.stuId}}">删除</a>
+                <a th:href="@{'/student/edit/'+${student.stuId}}">修改</a>
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center">
+        <a th:if="${page.hasPreviousPage}" th:href="@{/student/page/1}">首页</a>
+        <a th:if="${page.hasPreviousPage}" th:href="@{'/student/page/'+ ${page.prePage}}">上一页</a>
+        <span th:each="num:${page.navigatepageNums}">
+            <a th:if="${page.pageNum == num}" style="color: red;" th:href="@{'/student/page/'+ ${num}}" th:text="'['+${num}+']'"></a>
+            <a th:if="${page.pageNum != num}" th:href="@{'/student/page/'+ ${num}}" th:text="${num}"></a>
+        </span>
+        <a th:if="${page.hasNextPage}" th:href="@{'/student/page/'+ ${page.nextPage}}">下一页</a>
+        <a th:if="${page.hasNextPage}" th:href="@{'/student/page/'+ ${page.pages}}">尾页</a>
+    </div>
+    <!--                请输入关键字：<input type="text" name="keyword" th:value="${keyword}">-->
+    <!--                <input type="button" value="查询" @click="search()">-->
+</div>
+<script type="text/javascript" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" th:src="@{/js/axios.min.js}"></script>
+<script type="text/javascript">
+
+    var vue = new Vue({
+        el:"#myform",
+        methods:{
+            search(){
+                axios.post(
+                    "/student/page/1",
+                    {keyword:}
+                ).then(response=>{
+
+
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>
