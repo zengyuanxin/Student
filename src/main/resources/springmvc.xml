@@ -39,7 +39,7 @@
 <!-- 4.开启mvc注解驱动-->
     <mvc:annotation-driven/>
 <!-- 5.配置视图控制器-->
-    <mvc:view-controller path="/" view-name="index"></mvc:view-controller>
+    <mvc:view-controller path="/" view-name="login"></mvc:view-controller>
         <!--
             对于3、4、5：
                 1.如果只配置5，没有3、4，只有视图控制器所设置的路径才会被解析，其他的写的控制层中的请求映射将全部映射不了
@@ -53,4 +53,5 @@
 <!-- 7.拦截器（没有可以不配置）-->
 <!-- 8.异常处理器（没有可以不配置）-->
 <!--    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"></bean>-->
+
 </beans>

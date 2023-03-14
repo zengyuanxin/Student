@@ -49,4 +49,14 @@ public interface StudentMapper {
      * @return
      */
     List<Student> getStudentByKeyword(@Param("keyword") String keyword);
+
+    /**
+     * 判断登录用户是否合法
+     * @param nick
+     * @param password
+     * @return
+     */
+    Student login(@Param("nick") String nick,@Param("password")  String password);
+
+
 }

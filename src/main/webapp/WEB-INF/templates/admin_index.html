@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>学生列表</title>
-<!--    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">-->
+    <!--    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">-->
     <link rel="stylesheet" th:href="@{/static/css/style.css}">
 </head>
 <body>
@@ -15,12 +15,11 @@
             </th>
         </tr>
         <tr>
-            <th id="myform" colspan="12">
-                <form th:action="@{/student/page/1}" method="post" style="float:left;width:60%;margin-left:20%;">
+            <th colspan="12">
+                <form id="myform" style="float:left;width:60%;margin-left:20%;">
                     请输入关键字：<input type="text" name="keyword" th:v-model="${keyword}">
-                    <input type="submit" value="查询">
+                    <input type="button" value="查询" @click="search()">
                 </form>
-                <a th:href="@{/student/addPage}" >添加新学生信息</a>
             </th>
         </tr>
         <tr>
@@ -41,6 +40,9 @@
         </tr>
         <tr th:each="student,status :${page.list}">
             <td th:text="${status.count}">1</td>
+<!--            <td >-->
+<!--                <img th:src="http://localhost:8080/ssm/student/page/1">-->
+<!--            </td>-->
             <td th:text="${student.ID}">ID</td>
             <td th:text="${student.NICK}">昵称</td>
             <td th:text="${student.PASSWORD}">密码</td>
@@ -53,7 +55,6 @@
             <td th:text="${student.INTRODUCE}">个人介绍</td>
             <td>
                 <a th:href="@{'/student/delete/'+${student.STUNO}}">删除</a>
-                <a th:href="@{'/student/edit/'+${student.STUNO}}">修改</a>
             </td>
         </tr>
     </table>
@@ -67,47 +68,23 @@
         <a th:if="${page.hasNextPage}" th:href="@{'/student/page/'+ ${page.nextPage}}">下一页</a>
         <a th:if="${page.hasNextPage}" th:href="@{'/student/page/'+ ${page.pages}}">尾页</a>
     </div>
-    <!--                请输入关键字：<input type="text" name="keyword" th:value="${keyword}">-->
-    <!--                <input type="button" value="查询" @click="search()">-->
 </div>
-<script type="text/javascript" th:src="@{/js/vue.js}"></script>
-<script type="text/javascript" th:src="@{/js/axios.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/axios.min.js}"></script>
 <script type="text/javascript">
-    new Vue({
-        el: "#myform",
-        data: {
-            keyword: "xx"
-        },
-        methods: {
-            send() {
-                axios.post(
-                    "/student/page/1",
-                    "keyword=" + this.keyword
-                )
-                    .then(resp => {
-                        alert(resp.data);
-                    })
-                    .catch(error => {
-                        alert(error);
-                    })
+        var vue = new Vue({
+            el:"#myform",
+            methods:{
+                search(){
+                    axios.post(
+                        "/ssm/student/search/1"
+                    ).then(response=>{
+                        console.log(response.data)
+
+                    });
+                }
             }
-        }
-    });
-
-<!--    var vue = new Vue({-->
-<!--        el:"#myform",-->
-<!--        methods:{-->
-<!--            search(){-->
-<!--                axios.post(-->
-<!--                    "/student/page/1",-->
-<!--                    {keyword:1}-->
-<!--                ).then(response=>{-->
-
-
-<!--                });-->
-<!--            }-->
-<!--        }-->
-<!--    });-->
+        });
 </script>
 </body>
 </html>

@@ -9,7 +9,7 @@ import java.util.List;
  * @author 星星
  * @create 2022-11-27 10:56
  */
-public interface StuMapper {
+public interface StudentMapper1 {
     /**
      * 查询所有学生信息
      * @return

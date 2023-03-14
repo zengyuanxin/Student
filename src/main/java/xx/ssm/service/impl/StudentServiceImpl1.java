@@ -5,11 +5,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xx.ssm.mapper.StuMapper;
 import xx.ssm.mapper.StudentMapper;
 import xx.ssm.pojo.Student;
-import xx.ssm.service.StuService;
-import xx.ssm.service.StudentService;
+import xx.ssm.service.StudentService1;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class StuServiceImpl implements StuService {
+public class StudentServiceImpl1 implements StudentService1 {
     @Autowired
     private StudentMapper studentMapper;
 

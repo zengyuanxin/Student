@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>登录页面</title>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+</head>
+<body>
+<div id="box">
+    <div class="form center" style="float:left;width:100%;" >
+        <form id="myform" th:action="@{/login}" method="post" class="center">
+            <table>
+                <div>
+                    <label>用户名称：</label>
+                    <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="NICK" id="NICK" />
+                </div>
+                <div>
+                    <label>用户密码：</label>
+                    <input class="itxt" type="PASSWORD" placeholder="请输入密码" autocomplete="off" tabindex="1" name="PASSWORD" id="PASSWORD"/>
+                </div>
+                <div>
+                    <i class="glyphicon glyphicon-text-background"></i>
+                    <img alt="单击图片刷新！" class="pointer" th:src="@{/kaptcha}" onclick="this.src='/kaptcha?d='+new Date()*1" style="margin: 10px 0 10px 0"><br>
+                    <input type="text" class="form-control" id="verifyCode" name="verifyCode" placeholder="请输入验证码" style="width: 25%;display: table-caption;">
+                </div>
+                <button type="button" name="login_btn" onclick="login();" style="margin:10px 0 10px 0">登 录</button>
+
+            </table>
+        </form>
+        <a th:href="@{/regist}" style="margin-top: 10px">注册账号</a>
+    </div>
+</div>
+<script>
+    function login() {
+        var NICK = document.getElementById("NICK").value;
+        var PASSWORD = document.getElementById("PASSWORD").value;
+        var verifyCode = document.getElementById("verifyCode").value;
+        var salt = "cvgd243v";
+        if(NICK == '') {
+            alert('用户名输入不能为空，请您输入！');
+            return;
+        }
+        if(PASSWORD == '') {
+            alert('密码不能为空，请您输入！');
+            return;
+        }
+        if(verifyCode == '') {
+            alert('验证码不能为空，请您输入！');
+            return;
+        }
+        document.getElementById("myform").submit();
+    }
+</script>
+</body>
+</html>

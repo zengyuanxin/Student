@@ -62,4 +62,34 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring.xml</param-value>
     </context-param>
+
+    <!-- 登陆验证码 Kaptcha -->
+    <servlet>
+        <servlet-name>Kaptcha</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+        <!-- 验证码各项配置 -->
+        <init-param>
+            <param-name>kaptcha.border</param-name>
+            <param-value>no</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.font.color</param-name>
+            <param-value>red</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.char.space</param-name>
+            <param-value>3</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Kaptcha</servlet-name>
+        <!-- img src 指定格式 -->
+        <url-pattern>/kaptcha.jpg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+
 </web-app>

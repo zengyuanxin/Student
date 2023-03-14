@@ -2,32 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>新增学生信息</title>
+    <title>注册账号</title>
     <!--    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">-->
     <link rel="stylesheet" th:href="@{/static/css/style.css}">
 </head>
 <body>
 <div id="div_container">
-    <form th:action="@{/student/add}" method="post" th:object="${student}" >
+
+    <form th:action="@{/student/add}" method="post" th:object="${student}" enctype="multipart/form-data">
         <table id="tbl_student">
             <tr>
                 <th colspan="2">新增学生信息</th>
             </tr>
             <tr>
-                <th>姓名：</th>
-                <td><input type="text" name="stuName" th:value="*{stuName}"/></td>
+                <th colspan="2">
+                    头像：<input type="file" name="photo">
+                </th>
             </tr>
             <tr>
-                <th>年龄：</th>
-                <td><input type="text" name="age" th:value="*{age}"/></td>
+                <th>学号：</th>
+                <td><input type="text" name="STUNO" th:value="*{STUNO}"/></td>
+            </tr>
+            <tr>
+                <th>昵称：</th>
+                <td><input type="text" name="NICK" th:value="*{NICK}"/></td>
+            </tr>
+            <tr>
+                <th>密码：</th>
+                <td><input type="text" name="PASSWORD" th:value="*{PASSWORD}"/></td>
+            </tr>
+            <tr>
+                <th>姓名：</th>
+                <td><input type="text" name="STUNAME" th:value="*{STUNAME}"/></td>
             </tr>
             <tr>
                 <th>性别：</th>
-                <td><input type="text" name="sex" th:value="*{sex}"/></td>
+                <td><input type="text" name="SEX" th:value="*{SEX}"/></td>
+            </tr>
+            <tr>
+                <th>年龄：</th>
+                <td><input type="text" name="AGE" th:value="*{AGE}"/></td>
+            </tr>
+            <tr>
+                <th>电话：</th>
+                <td><input type="text" name="PHONE" th:value="*{PHONE}"/></td>
             </tr>
             <tr>
                 <th>邮箱：</th>
-                <td><input type="text" name="email" th:value="*{email}"/></td>
+                <td><input type="text" name="EMAIL" th:value="*{EMAIL}"/></td>
+            </tr>
+            <tr>
+                <th>个人介绍：</th>
+                <td><input type="text" name="INTRODUCE" th:value="*{INTRODUCE}"/></td>
             </tr>
             <tr>
                 <th colspan="2">
@@ -36,7 +62,6 @@
             </tr>
         </table>
     </form>
-
 </div>
 </body>
 </html>

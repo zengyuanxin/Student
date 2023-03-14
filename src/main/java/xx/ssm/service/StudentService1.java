@@ -9,7 +9,7 @@ import java.util.List;
  * @author 星星
  * @create 2022-11-27 10:57
  */
-public interface StuService {
+public interface StudentService1 {
     /**
      * 查询所有的学生信息
      */

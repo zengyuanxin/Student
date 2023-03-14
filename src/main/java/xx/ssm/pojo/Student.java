@@ -6,18 +6,18 @@ package xx.ssm.pojo;
  */
 public class Student {
     private Integer ID;
-
+//    !
     private String NICK;
 
     private String PASSWORD;
 
-    private String STUNO;
+    private Integer STUNO;
 
     private String STUNAME;
 
     private String SEX;
 
-    private String AGE;
+    private Integer AGE;
 
     private String PHONE;
 
@@ -30,7 +30,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer ID, String NICK, String PASSWORD, String STUNO, String STUNAME, String SEX, String AGE, String PHONE, String EMAIL, String PIC, String INTRODUCE) {
+    public Student(Integer ID, String NICK, String PASSWORD, Integer STUNO, String STUNAME, String SEX, Integer AGE, String PHONE, String EMAIL, String PIC, String INTRODUCE) {
         this.ID = ID;
         this.NICK = NICK;
         this.PASSWORD = PASSWORD;
@@ -46,7 +46,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Stu{" +
+        return "Student1{" +
                 "ID=" + ID +
                 ", NICK='" + NICK + '\'' +
                 ", PASSWORD='" + PASSWORD + '\'' +
@@ -85,11 +85,11 @@ public class Student {
         this.PASSWORD = PASSWORD;
     }
 
-    public String getSTUNO() {
+    public Integer getSTUNO() {
         return STUNO;
     }
 
-    public void setSTUNO(String STUNO) {
+    public void setSTUNO(Integer STUNO) {
         this.STUNO = STUNO;
     }
 
@@ -109,11 +109,11 @@ public class Student {
         this.SEX = SEX;
     }
 
-    public String getAGE() {
+    public Integer getAGE() {
         return AGE;
     }
 
-    public void setAGE(String AGE) {
+    public void setAGE(Integer AGE) {
         this.AGE = AGE;
     }
 
@@ -148,4 +148,5 @@ public class Student {
     public void setINTRODUCE(String INTRODUCE) {
         this.INTRODUCE = INTRODUCE;
     }
+
 }

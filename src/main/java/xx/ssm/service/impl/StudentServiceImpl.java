@@ -70,4 +70,11 @@ public class StudentServiceImpl implements StudentService {
         return studentMapper.getStudentByKeyword(keyword);
     }
 
+    @Override
+    public Student login(String nick, String password) {
+        return studentMapper.login(nick,password);
+    }
+
+
+
 }

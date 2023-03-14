@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jaxrs="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 <!-- 扫描组件-->
@@ -62,4 +63,27 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="xx.ssm.mapper"></property>
     </bean>
+<!--    <jaxrs:server id="captcha" address="/captcha">-->
+<!--        <jaxrs:serviceBeans>-->
+<!--            <ref bean="captchaService"/>-->
+<!--        </jaxrs:serviceBeans>-->
+<!--    </jaxrs:server>-->
+
+<!--    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">-->
+<!--        <property name="config">-->
+<!--            <bean class="com.google.code.kaptcha.util.Config">-->
+<!--                <constructor-arg>-->
+<!--                    <props>-->
+<!--                        &lt;!&ndash; Kaptcha 配置 &ndash;&gt;-->
+<!--                        <prop key="kaptcha.border">no</prop>-->
+<!--                        <prop key="kaptcha.image.width">250</prop>-->
+<!--                        <prop key="kaptcha.textproducer.font.size">80</prop>-->
+<!--                        <prop key="kaptcha.image.height">90</prop>-->
+<!--                        <prop key="kaptcha.session.key">code</prop>-->
+<!--                        <prop key="kaptcha.textproducer.char.length">4</prop>-->
+<!--                    </props>-->
+<!--                </constructor-arg>-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
 </beans>

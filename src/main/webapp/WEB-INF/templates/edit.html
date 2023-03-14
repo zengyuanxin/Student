@@ -2,47 +2,70 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>修改学生信息</title>
+    <title>修改个人信息</title>
     <!--    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">-->
     <link rel="stylesheet" th:href="@{/static/css/style.css}">
 </head>
 <body>
 <div id="div_container">
-    <form th:action="@{/student/update}" method="post" th:object="${student}" >
-        <table id="tbl_student">
-            <tr>
-                <th colspan="2">编辑学生信息</th>
-            </tr>
-            <tr>
-                <th >学号：</th>
-                <td><input type="text" name="stuId" th:value="*{stuId}" /></td>
-            </tr>
-            <tr>
-                <th>姓名：</th>
-                <td><input type="text" name="stuName" th:value="*{stuName}"/></td>
-            </tr>
-            <tr>
-                <th>年龄：</th>
-                <td><input type="text" name="age" th:value="*{age}"/></td>
-            </tr>
-            <tr>
-                <th>性别：</th>
-                <td><input type="text" name="sex" th:value="*{sex}"/></td>
-            </tr>
-            <tr>
-                <th>邮箱：</th>
-                <td><input type="text" name="email" th:value="*{email}"/></td>
-            </tr>
-            <tr>
-                <th colspan="2">
-                    <input type="submit" value="修改" />
-                </th>
-            </tr>
-        </table>
-    </form>
+    <div class="form center" style="float:left;width:100%;">
+        <form th:action="@{/student/update}" method="post" th:object="${student}" class="center" id="form" enctype="multipart/form-data">
+            <table id="tbl_student">
+                <div>
+                    <h1>编辑学生信息</h1>
+                </div>
+                <div>
+                    <label>学号：</label>
+                    <input type="text" name="STUNO" th:value="*{STUNO}"/>
+                </div>
+                <div>
+                    <label>昵称：</label>
+                    <input type="text" name="NICK" th:value="*{NICK}"/>
+                    <span style="float: right" id="s_username"></span>
+                </div>
+                <div>
+                    <label>密码：</label>
+                    <input type="text" name="PASSWORD" th:value="*{PASSWORD}"/>
+                </div>
+                <div>
+                    <label>姓名：</label>
+                    <input type="text" name="STUNAME" th:value="*{STUNAME}"/>
+                </div>
 
+                <div >
+                    <label>性别：</label>
+                    <input type="text" name="SEX" th:value="*{SEX}"/>
+                </div>
+
+                <div>
+                    <label>年龄：</label>
+                    <input type="text" name="AGE" th:value="*{AGE}"/>
+                </div>
+                <div>
+                    <label>电话：</label>
+                    <input type="text" name="PHONE" th:value="*{PHONE}"/>
+                </div>
+                <div>
+                    <label>邮箱：</label>
+                    <input type="text" name="EMAIL" th:value="*{EMAIL}"/>
+                </div>
+                <div>
+                    <label>个人介绍：</label>
+                    <input type="text" name="INTRODUCE" th:value="*{INTRODUCE}"/>
+                </div>
+                <div>
+                    <img src="/image/020412f5-4723-439e-9946-158b91c0c82e.jpg">
+                    头像：<input type="file" name="photo"><br>
+                    <input type="submit" value="更换头像">
+                </div>
+            </table>
+        </form>
+<!--        <form action="uploadImage" method="post" enctype="multipart/form-data">-->
+<!--            <img th:src="@{|D:\MyWork\SSM\MySSM\ssm\target\ssm-1.0-SNAPSHOT\photo\53532e89-da0c-45eb-82a4-71e180fe03ec.jpg|}">-->
+<!--            选择图片：<input type="file" name="image" accept="image/*" /><br>-->
+<!--            <input type="submit" value="上传">-->
+<!--        </form>-->
+    </div>
 </div>
-
-
 </body>
 </html>

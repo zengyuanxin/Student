@@ -14,6 +14,7 @@ import java.util.Map;
 public interface StudentService {
     /**
      * 查询所有的学生信息
+     *
      */
     List<Student> getAllStudent();
 
@@ -56,4 +57,14 @@ public interface StudentService {
      * @return
      */
     List<Student> getStudentByKeyword(String keyword);
+
+    /**
+     * 判断登录用户是否合法
+     * @param nick
+     * @param password
+     * @return
+     */
+    Student login(String nick, String password);
+
+
 }

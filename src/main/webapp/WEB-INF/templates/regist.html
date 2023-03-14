@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+</head>
+<body>
+    <div id="div_container">
+        <form id="form" th:action="@{/student/add}" method="post" enctype="multipart/form-data">
+            <table id="tbl_student">
+                <tr>
+                    <th colspan="2">编辑学生信息</th>
+                </tr>
+                <tr>
+                    <th>学号：</th>
+                    <td><input type="text" name="STUNO" th:value="*{STUNO}"/></td>
+                </tr>
+                <tr>
+                    <th>昵称：</th>
+                    <td><input type="text" name="NICK" th:value="*{NICK}"/></td>
+                </tr>
+                <tr>
+                    <th>密码：</th>
+                    <td><input type="text" name="PASSWORD" th:value="*{PASSWORD}"/></td>
+                </tr>
+                <tr>
+                    <th>姓名：</th>
+                    <td><input type="text" name="STUNAME" th:value="*{STUNAME}"/></td>
+                </tr>
+                <tr>
+                    <th>性别：</th>
+                    <td>
+                        <input type="radio" name="SEX" id="male" th:value="男" >男
+                        <input type="radio" name="SEX" id="female" th:value="女" >女
+                    </td>
+
+                </tr>
+                <tr>
+                    <th>年龄：</th>
+                    <td><input type="text" name="AGE" th:value="*{AGE}"/></td>
+                </tr>
+                <tr>
+                    <th>电话：</th>
+                    <td><input type="text" name="PHONE" th:value="*{PHONE}"/></td>
+                </tr>
+                <tr>
+                    <th>邮箱：</th>
+                    <td><input type="text" name="EMAIL" th:value="*{EMAIL}"/></td>
+                </tr>
+                <tr>
+                    <th>个人介绍：</th>
+                    <td><input type="text" name="INTRODUCE" th:value="*{INTRODUCE}"/></td>
+                </tr>
+                <tr>
+                    <th>头像：</th>
+                    <td><input type="file"  name="photo"></td>
+<!--                    <td>上传照片：</td>-->
+<!--                    <td> <input type="file" name="photo" id="StuImage" name="StuImage" onchange = "imageUpload(this.files)">${typemsg}</td>-->
+                </tr>
+                <tr>
+                    <td><a href="index.jsp">返回</a></td>
+                    <td><input type="button" onclick="check()" value="提交"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/md5-min.js"></script>
+</head>
+<script>
+    function  imageUpload(files){
+        //创建文件读取对象
+        const reader = new FileReader();
+        //文件按照该格式进行读取(格式可按照需求写)
+        reader.readAsDataURL(files[0], `utf-8`);
+        // 读取完文件之后会回来这里
+        reader.onload = (file) => {
+            // 读取文件内容
+            const image = file.target.result;
+            //设置图片预览
+            document.getElementById("onload_image").setAttribute("src", image);
+            //将解析图片存至隐藏文本域内
+            document.getElementById("image").innerText = image;
+        }
+    }
+    $(function (){
+        //username绑定blur事件
+        $("#NICK").blur(function () {
+            alert(1)
+            //获取username文本框的值
+            var NICK = $(this).val();
+            //发送ajax请求
+            //期望服务器响应回的数据格式：{"userExist":true,"msg":"此用户名太受欢迎，请更换一个}
+            //                      {"userExist":false,"msg":"用户名可用}
+            $.get("/isExist",{NICK:NICK},function (data) {//直接返回的data是一个字符串
+                //判断userExist是否为true
+                var span = $("#STUNAME");
+                if(data.userExist) {
+                    span.css("color","red");
+                    span.html(data.msg);
+                    //用户名存在
+                }else {
+                    //用户名不存在
+                    span.css("color","green");
+                    span.html(data.msg);
+                }
+            },"json");//指定接受类型是json
+        });
+    })
+
+
+    function check() {
+        var salt="cvgd243v";
+        var STUNAME = document.getElementById("STUNAME").value;
+        var NICK = document.getElementById("NICK").value;
+        var PASSWORD = document.getElementById("PASSWORD").value;
+        if(STUNAME == '') {
+            alert('姓名输入不能为空，请您输入！');
+            return;
+        }
+        if(PASSWORD == '') {
+            alert('密码不能为空，请您输入！');
+            return;
+        }
+        if(NICK == '') {
+            alert('昵称不能为空，请您输入！');
+            return;
+        }
+
+        if(STUNAME=="此用户名太受欢迎，请更换一个") {//如果昵称已存在
+            alert("请换一个昵称！");
+            return;
+        }
+        $('#PASSWORD').val(hex_md5($('#PASSWORD').val()+salt));
+        //调用后端servlet，并将数据进行传递
+        document.getElementById("form").submit();
+    }
+
+</script>
+</html>
